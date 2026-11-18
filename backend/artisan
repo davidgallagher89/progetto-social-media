@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+$command = $argv[1] ?? 'serve';
+
+if ($command === 'serve') {
+    $host = '0.0.0.0';
+    $port = '8000';
+
+    foreach ($argv as $arg) {
+        if (str_starts_with($arg, '--host=')) {
+            $host = substr($arg, 7);
+        }
+        if (str_starts_with($arg, '--port=')) {
+            $port = substr($arg, 7);
+        }
+    }
+
+    echo "SocialPulse API Server avviato su http://{$host}:{$port}\n";
+    passthru("php -S {$host}:{$port} server.php");
+} else {
+    echo "Comando artisan '{$command}' non gestito.\n";
+}
